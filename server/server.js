@@ -38,7 +38,7 @@ app.post('/auth/login', async (req, resp) => {
     const { username, password } = req.body;
     console.log('req body', req.body)
     try {
-        const users = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        const users = await pool.query('SELECT * FROM users WHERE username = $1;', [username]);
         console.log('users', users);
 
         if (!users.rows.length) {
@@ -58,7 +58,60 @@ app.post('/auth/login', async (req, resp) => {
     }
 });
 
+// create task
+app.post('/tasks', async (req, resp) => {
+    const { title, description, iscomplete, userid } = req.body;
+    console.log('req.body >', req.body);
+    const id = uuidv4();
 
+    try {
+        const newTask = await pool.query(`INSERT INTO tasks(id, title, description, isComplete, userId) VALUES($1, $2, $3, $4, $5);`,
+            [id, title, description, iscomplete, userid]
+        );
+        resp.json(newTask);
+    }
+    catch (err) {
+        console.error(err);
+    }
+});
+
+// get tasks by userId
+app.get('/tasks/:userId', async (req, resp) => {
+
+    const { userId } = req.params;
+    
+    try {
+        const tasks = await pool.query('SELECT * FROM tasks WHERE userId = $1', [userId]);
+        resp.json(tasks.rows);
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+// update task
+app.put('/tasks/:id', async (req, resp) => {
+    const { id } = req.params;
+    const {title, description, iscomplete, userid } = req.body;
+
+    try {
+        const updateTask = await pool.query('UPDATE tasks SET title = $1, description = $2, isComplete = $3, userId = $4 WHERE id = $5;', 
+            [title, description, iscomplete, userid, id]);
+        resp.json(updateTask);
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+// delete task
+app.delete('/tasks/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        const deleteTask = await pool.query('DELETE FROM tasks WHERE id = $1', [id]);
+        resp.json(deleteTask);
+    } catch (err) {
+        console.error(err);
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on PORT ${PORT}`);

@@ -17,3 +17,32 @@ a {
 a:hover {
   cursor: pointer;
 }
+
+.complete {
+  color: darkgreen;
+}
+
+.incomplete {
+  color: darkred;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-container {
+  max-width: 50vh;
+}
+
+.form {
+  margin-bottom: 2vh;
+}

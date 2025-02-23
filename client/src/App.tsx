@@ -1,30 +1,53 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Auth from './components/Auth';
+import TaskListItem from './components/TaskListItem';
+import Dialog from './components/Dialog';
+import ListHeader from './components/ListHeader';
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  iscomplete: boolean;
+  userid: string;
+}
 
 const App: React.FC = () => {
   const [cookies, setCookie, removeCookie] = useCookies(undefined);
+  const userId = cookies.Id;
   const authToken = cookies.AuthToken;
-  const id = cookies.Id;
   const username = cookies.Username;
-  
+  const [tasks, setTasks] = useState<Task[] | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const getData = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/tasks/${userId}`);
+      const json: Task[] = await response.json();
+      setTasks(json);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     if (authToken) {
-      console.log('Logged in!', id);
-
+      getData();
     }
   }, [authToken]);
 
+  console.log("tasks", tasks);
+
   return (
-    <div>
-      <h1>Task Manager App</h1>
+    <div className="app">
       {!authToken && <Auth />}
-      {authToken &&
+      {authToken && 
         <>
-          {
-            <h1>You're logged in, baby!</h1>
-          }
+          <h1>Task Manager</h1>
+          <ListHeader listName={`Here are your tasks, ${username}:`} getData={getData} />
+          {tasks?.map((task) => <TaskListItem key={task.id} task={task} getData={getData}/>)}
         </>
       }
     </div>
