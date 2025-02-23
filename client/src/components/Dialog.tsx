@@ -34,8 +34,8 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
     try {
       const response = await fetch(`http://localhost:8000/tasks`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
+        body: JSON.stringify(data),
       });
       if (response.status === 200) {
         setShowDialog(false);
@@ -53,7 +53,7 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
     try {
       const response = await fetch(`http://localhost:8000/tasks/${task.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
         body: JSON.stringify(data)
       });
       if (response.status === 200) {

@@ -24,7 +24,10 @@ const App: React.FC = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/tasks/${userId}`);
+      const response = await fetch(`http://localhost:8000/tasks/${userId}`, {
+        method: "GET",
+        headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
+      });
       const json: Task[] = await response.json();
       setTasks(json);
     } catch (err) {

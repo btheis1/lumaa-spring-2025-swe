@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Dialog from './Dialog';
+import { useCookies } from 'react-cookie';
 
 interface Task {
     id: string;
@@ -16,11 +17,13 @@ interface TaskListItemProps {
 
 const ListItem: React.FC<TaskListItemProps> = ({ task, getData }) => {
   const [showDialog, setShowDialog] = useState(false);
-
+  const [cookies, setCookie, removeCookie] = useCookies(undefined);
+  
   const deleteItem = async () => {
     try {
       const response = await fetch(`http://localhost:8000/tasks/${task.id}`, {
         method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken }
       });
       if (response.status === 200) {
         getData();
