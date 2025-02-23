@@ -6,7 +6,7 @@ const pool = new Pool({
     password: process.env.PASSWORD,
     host: process.env.HOST,
     port: process.env.DBPORT,
-    database: 'taskapp'
+    database: 'tasksapp'
 });
 
 module.exports = pool;
