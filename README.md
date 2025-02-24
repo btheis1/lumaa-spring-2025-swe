@@ -1,119 +1,50 @@
 # Full-Stack Coding Challenge
 
-**Deadline**: Sunday, Feb 23th 11:59 pm PST
+**Brook Theis - bthei10@wgu.edu**
 
 ---
 
 ## Overview
 
-Create a “Task Management” application with **React + TypeScript** (frontend), **Node.js** (or **Nest.js**) (backend), and **PostgreSQL** (database). The application should:
-
-1. **Register** (sign up) and **Log in** (sign in) users.
-2. After logging in, allow users to:
-   - **View a list of tasks**.
-   - **Create a new task**.
-   - **Update an existing task** (e.g., mark complete, edit).
-   - **Delete a task**.
-
-Focus on **correctness**, **functionality**, and **code clarity** rather than visual design.  
-This challenge is intended to be completed within ~3 hours, so keep solutions minimal yet functional.
+A simple Task Management application built with React - Typescript, Node.js, Express, and PostgreSQL.
 
 ---
 
-## Requirements
+## Steps to Run
 
-### 1. Authentication
+### 1. Database Set Up
 
-- **User Model**:
-  - `id`: Primary key
-  - `username`: Unique string
-  - `password`: Hashed string
-- **Endpoints**:
-  - `POST /auth/register` – Create a new user
-  - `POST /auth/login` – Login user, return a token (e.g., JWT)
-- **Secure the Tasks Routes**: Only authenticated users can perform task operations.  
-  - **Password Hashing**: Use `bcrypt` or another hashing library to store passwords securely.
-  - **Token Verification**: Verify the token (JWT) on each request to protected routes.
+- In the server/.env file:
+  - Delete the current values for DBUSERNAME and PASSWORD (where it says, "Your username/password here).
+  -  Enter your PostgreSQL Username and Password in those fields.
+ 
+- Open a terminal window and run the following command to connect to PostgreSQL:
+  - psql -U yourUsername
+  - Type in your PostgreSQL password when prompted.
+- Open the server/data.sql file.  
+  - Run each of the SQL statements in that file one-by-one in your termina window connected to PostgreSQL.
+  - Ex: Run line 1, then line 3, then lines 5-9, and then lines 11-16.
 
-### 2. Backend (Node.js or Nest.js)
+### 2. Start the back end
 
-- **Tasks CRUD**:  
-  - `GET /tasks` – Retrieve a list of tasks (optionally filtered by user).  
-  - `POST /tasks` – Create a new task.  
-  - `PUT /tasks/:id` – Update a task (e.g., mark as complete, edit text).  
-  - `DELETE /tasks/:id` – Delete a task.
-- **Task Model**:
-  - `id`: Primary key
-  - `title`: string
-  - `description`: string (optional)
-  - `isComplete`: boolean (default `false`)
-  - _(Optional)_ `userId` to link tasks to the user who created them
-- **Database**: PostgreSQL
-  - Provide instructions/migrations to set up:
-    - `users` table (with hashed passwords)
-    - `tasks` table
-- **Setup**:
-  - `npm install` to install dependencies
-  - `npm run start` (or `npm run dev`) to run the server
-  - Document any environment variables (e.g., database connection string, JWT secret)
+- Open up a terminal at the root of the server folder.
+  - Run "npm i" to install node modules.
+  - Run "npm run start" to run the server.
+  - If you'd like to test the back end endpoints without the front end, they can be found at http://localhost:8000. The endpoints won't work without an autorization token.
+  - You can reference the server port information in the client/.env file.
+  - You can see database port information in the server/.env file.
 
-### 3. Frontend (React + TypeScript)
+### 3. Start the front end
 
-- **Login / Register**:
-  - Simple forms for **Register** and **Login**.
-  - Store JWT (e.g., in `localStorage`) upon successful login.
-  - If not authenticated, the user should not see the tasks page.
-- **Tasks Page**:
-  - Fetch tasks from `GET /tasks` (including auth token in headers).
-  - Display the list of tasks.
-  - Form to create a new task (`POST /tasks`).
-  - Buttons/fields to update a task (`PUT /tasks/:id`).
-  - Button to delete a task (`DELETE /tasks/:id`).
-- **Navigation**:
-  - Show `Login`/`Register` if not authenticated.
-  - Show `Logout` if authenticated.
-- **Setup**:
-  - `npm install` then `npm start` (or `npm run dev`) to run.
-  - Document how to point the frontend at the backend (e.g., `.env` file, base URL).
+- Open up a second terminal window at the root of the client folder.
+  - Run "npm i" to install node modules.
+  - Run "npm run dev" to run the front end.
+  - The front end app will run at http://localhost:5173
+
+
+## Salary Expectations Per Month
+I'd like $30/hour, so if I were working 20/hours per week at this part-time internship, I'd expect roughly $2,600/month.
 
 ---
 
-## Deliverables
-
-1. **Fork the Public Repository**: **Fork** this repo into your own GitHub account.
-2. **Implement Your Solution** in the forked repository. Make sure you're README file has:
-   - Steps to set up the database (migrations, environment variables).
-   - How to run the backend.
-   - How to run the frontend.
-   - Any relevant notes on testing.
-   - Salary Expectations per month (Mandatory)
-3. **Short Video Demo**: Provide a link (in a `.md` file in your forked repo) to a brief screen recording showing:
-   - Registering a user
-   - Logging in
-   - Creating, updating, and deleting tasks
-4. **Deadline**: Submissions are due **Sunday, Feb 23th 11:59 pm PST**.
-
-> **Note**: Please keep your solution minimal. The entire project is intended to be completed in around 3 hours. Focus on core features (registration, login, tasks CRUD) rather than polished UI or extra features.
-
----
-
-## Evaluation Criteria
-
-1. **Functionality**  
-   - Does registration and login work correctly (with password hashing)?
-   - Are tasks protected by authentication?
-   - Does the tasks CRUD flow work end-to-end?
-
-2. **Code Quality**  
-   - Is the code structured logically and typed in TypeScript?
-   - Are variable/function names descriptive?
-
-3. **Clarity**  
-   - Is the `README.md` (in your fork) clear and detailed about setup steps?
-   - Easy to run and test?
-
-4. **Maintainability**  
-   - Organized logic (controllers/services, etc.)
-   - Minimal hard-coded values
-
-Good luck, and we look forward to your submission!
+Thank you!

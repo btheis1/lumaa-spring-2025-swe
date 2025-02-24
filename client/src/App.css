@@ -1,0 +1,48 @@
+#root {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  margin-bottom: 1vh;
+}
+
+a {
+  color: darkgreen;
+  text-decoration: underline;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.complete {
+  color: darkgreen;
+}
+
+.incomplete {
+  color: darkred;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-container {
+  max-width: 50vh;
+}
+
+.form {
+  margin-bottom: 2vh;
+}
