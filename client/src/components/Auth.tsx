@@ -11,8 +11,6 @@ const Auth: React.FC<AuthProps> = () => {
     const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    console.log(cookies);
-
     const viewLogin = (status: boolean) => {
         setError(null);
         setIsLogin(status);
@@ -26,14 +24,14 @@ const Auth: React.FC<AuthProps> = () => {
             return;
         }
 
-        const response = await fetch(`http://localhost:8000/auth/${endpoint}`, {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
         });
 
         const data = await response.json();
-        console.log('data', data);
+
         if (data.detail) {
             setError(data.detail);
         } else {
@@ -47,6 +45,7 @@ const Auth: React.FC<AuthProps> = () => {
 
     return (
         <div>
+            <h1>Task Manager</h1>
             <form>
                 <h2>{isLogin ? 'Login' : 'Register'}</h2>
                 <div className="input-field">

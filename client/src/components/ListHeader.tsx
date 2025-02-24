@@ -27,7 +27,6 @@ const ListHeader: React.FC<ListHeaderProps> = ({ listName, getData }) => {
   };
  
   const signOut = () => {
-    console.log("Sign out");
     removeCookie('Id');
     removeCookie('Username');
     removeCookie('AuthToken');

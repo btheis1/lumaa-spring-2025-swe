@@ -32,7 +32,7 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
     event.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8000/tasks`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tasks`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
         body: JSON.stringify(data),
@@ -48,10 +48,9 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
 
   const editData = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('data in edit method', data)
 
     try {
-      const response = await fetch(`http://localhost:8000/tasks/${task.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tasks/${task.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
         body: JSON.stringify(data)
@@ -72,8 +71,6 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
       ...prevData,
       [name]: type === 'checkbox' ? checked : value
     }));
-
-    console.log('data', data)
   }
 
   return (
@@ -88,7 +85,6 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
           <label htmlFor="title">Title</label>
           <input
             required
-            maxLength={30}
             placeholder="Ex: Add CRUD methods"
             name="title"
             value={data.title}
@@ -117,7 +113,7 @@ const Dialog: React.FC<DialogProps> = ({ mode, setShowDialog, getData, task }) =
           </label>
         </div>
         
-        <input type="submit" value={mode === 'Edit' ? 'Edit' : 'Create'} />
+        <input type="submit" value={mode === 'Edit' ? 'Edit Task' : 'Add Task'} />
       </form>
 
     </div>

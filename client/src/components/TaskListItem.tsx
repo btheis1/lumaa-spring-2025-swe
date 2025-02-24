@@ -21,7 +21,7 @@ const ListItem: React.FC<TaskListItemProps> = ({ task, getData }) => {
   
   const deleteItem = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/tasks/${task.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tasks/${task.id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken }
       });

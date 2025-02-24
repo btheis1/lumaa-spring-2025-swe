@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Auth from './components/Auth';
 import TaskListItem from './components/TaskListItem';
-import Dialog from './components/Dialog';
 import ListHeader from './components/ListHeader';
 
 interface Task {
@@ -24,7 +23,7 @@ const App: React.FC = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/tasks/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/tasks/${userId}`, {
         method: "GET",
         headers: { 'Content-Type': 'application/json', 'token': cookies.AuthToken },
       });
@@ -40,8 +39,6 @@ const App: React.FC = () => {
       getData();
     }
   }, [authToken]);
-
-  console.log("tasks", tasks);
 
   return (
     <div className="app">
